@@ -107,28 +107,10 @@ const NewsAnnouncements: React.FC<NewsAnnouncementsProps> = ({ onNavigate }) => 
             </div>
           )}
         </div>
-        
-        {/* Bottom Callout Banner */}
-        <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between group cursor-pointer hover:bg-red-800 transition-all duration-500 shadow-2xl relative overflow-hidden">
-          <div className="relative z-10 flex items-center gap-6">
-            <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-white backdrop-blur-sm border border-white/20 group-hover:bg-white group-hover:text-red-800 transition-all">
-              <i className="fas fa-file-download text-lg"></i>
-            </div>
-            <div className="space-y-1">
-              <h5 className="font-black text-sm sm:text-base uppercase tracking-tight">Academic Prospectus 2025-26</h5>
-              <p className="text-white/60 text-[9px] font-bold uppercase tracking-widest">Comprehensive guide to our courses & pedagogy</p>
-            </div>
-          </div>
-          <button className="relative z-10 mt-6 md:mt-0 px-8 py-3.5 bg-white/10 hover:bg-white text-white hover:text-red-800 border border-white/20 hover:border-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all">
-            Download PDF
-          </button>
-          <div className="absolute top-0 right-0 p-10 opacity-5 -rotate-12 translate-x-10 -translate-y-5 pointer-events-none">
-            <i className="fas fa-graduation-cap text-[8rem]"></i>
-          </div>
-        </div>
       </div>
     </section>
   );
 };
 
 export default NewsAnnouncements;
+
