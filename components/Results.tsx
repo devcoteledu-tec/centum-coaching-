@@ -20,19 +20,64 @@ const Results: React.FC = () => {
 
   const exams = ['JEE Advanced', 'JEE Main', 'NEET (UG)', 'KEAM', 'Foundation'];
   
-  // Year range for the results archive section
-  const resultYears = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
-
-  // Professional Color Themes for the Year Cards
-  const cardThemes = [
-    { border: 'border-red-100', hoverBorder: 'hover:border-red-400', bg: 'bg-red-50/30', badge: 'bg-red-800', shadow: 'shadow-red-900/5', btn: 'group-hover/btn:text-red-900', icon: 'text-red-600' },
-    { border: 'border-blue-100', hoverBorder: 'hover:border-blue-400', bg: 'bg-blue-50/30', badge: 'bg-blue-800', shadow: 'shadow-blue-900/5', btn: 'group-hover/btn:text-blue-900', icon: 'text-blue-600' },
-    { border: 'border-emerald-100', hoverBorder: 'hover:border-emerald-400', bg: 'bg-emerald-50/30', badge: 'bg-emerald-800', shadow: 'shadow-emerald-900/5', btn: 'group-hover/btn:text-emerald-900', icon: 'text-emerald-600' },
-    { border: 'border-amber-100', hoverBorder: 'hover:border-amber-400', bg: 'bg-amber-50/30', badge: 'bg-amber-600', shadow: 'shadow-amber-900/5', btn: 'group-hover/btn:text-amber-900', icon: 'text-amber-600' },
-    { border: 'border-purple-100', hoverBorder: 'hover:border-purple-400', bg: 'bg-purple-50/30', badge: 'bg-purple-800', shadow: 'shadow-purple-900/5', btn: 'group-hover/btn:text-purple-900', icon: 'text-purple-600' },
-    { border: 'border-rose-100', hoverBorder: 'hover:border-rose-400', bg: 'bg-rose-50/30', badge: 'bg-rose-700', shadow: 'shadow-rose-900/5', btn: 'group-hover/btn:text-rose-900', icon: 'text-rose-600' },
-    { border: 'border-indigo-100', hoverBorder: 'hover:border-indigo-400', bg: 'bg-indigo-50/30', badge: 'bg-indigo-800', shadow: 'shadow-indigo-900/5', btn: 'group-hover/btn:text-indigo-900', icon: 'text-indigo-600' },
-    { border: 'border-teal-100', hoverBorder: 'hover:border-teal-400', bg: 'bg-teal-50/30', badge: 'bg-teal-700', shadow: 'shadow-teal-900/5', btn: 'group-hover/btn:text-teal-900', icon: 'text-teal-600' },
+  // Updated Year Data with Images, Highlights, and distinct links
+  const resultYearsData = [
+    { 
+      year: 2025, 
+      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800", 
+      highlight: "Admissions Open",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
+    { 
+      year: 2024, 
+      image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=800", 
+      highlight: "Record Breaking",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
+    { 
+      year: 2023, 
+      image: "https://images.unsplash.com/photo-1523240715639-99a8a7ae9b18?auto=format&fit=crop&q=80&w=800", 
+      highlight: "100% Pass Rate",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
+    { 
+      year: 2022, 
+      image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&q=80&w=800", 
+      highlight: "Top Ranks",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
+    { 
+      year: 2021, 
+      image: "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&q=80&w=800", 
+      highlight: "Excellence",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
+    { 
+      year: 2020, 
+      image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=800", 
+      highlight: "State Best",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
+    { 
+      year: 2019, 
+      image: "https://images.unsplash.com/photo-1427504746696-ea5abd71a32f?auto=format&fit=crop&q=80&w=800", 
+      highlight: "Success",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
+    { 
+      year: 2018, 
+      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800", 
+      highlight: "Legacy",
+      link10th: "#",
+      linkPlusTwo: "#"
+    },
   ];
 
   useEffect(() => {
@@ -91,54 +136,58 @@ const Results: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {resultYears.map((year, index) => {
-            const theme = cardThemes[index % cardThemes.length];
-            return (
-              <div 
-                key={year} 
-                className={`group relative overflow-hidden bg-white rounded-[2.5rem] p-8 border ${theme.border} ${theme.bg} shadow-lg ${theme.shadow} ${theme.hoverBorder} hover:shadow-2xl hover:shadow-slate-300/50 hover:-translate-y-2 transition-all duration-500 flex flex-col cursor-pointer`}
-              >
-                {/* Subtle Background Zoom Effect */}
-                <div className="absolute -right-6 -bottom-6 text-slate-200/20 text-8xl transition-transform duration-700 group-hover:scale-125 group-hover:rotate-6 pointer-events-none">
-                  <i className={`fas ${index % 2 === 0 ? 'fa-graduation-cap' : 'fa-award'}`}></i>
-                </div>
-
-                <div className="flex items-center justify-between mb-8 relative z-10">
-                  <div className={`w-14 h-14 ${theme.badge} text-white rounded-2xl flex items-center justify-center text-xl font-black shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3 duration-500`}>
-                    {year.toString().slice(-2)}
+          {resultYearsData.map((data) => (
+            <div 
+              key={data.year} 
+              className="group relative h-[420px] rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-purple-900/20 transition-all duration-500 cursor-pointer"
+            >
+              {/* Background Image */}
+              <img 
+                src={data.image} 
+                alt={`Results ${data.year}`} 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0"
+              />
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent opacity-90 transition-opacity"></div>
+              
+              {/* Content Overlay */}
+              <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                  {/* Top Badge */}
+                  <div className="absolute top-6 left-6">
+                    <span className="bg-white/20 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg">
+                        {data.highlight}
+                    </span>
                   </div>
-                  <div className="text-right">
-                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Academic Year</p>
-                     <p className="text-lg font-black text-slate-900">{year}</p>
+
+                  {/* Year Display */}
+                  <div className="mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mb-1">Academic Year</p>
+                    <h2 className="text-6xl font-black text-white tracking-tighter leading-none">{data.year}</h2>
                   </div>
-                </div>
-
-                <div className="space-y-3 relative z-10">
-                  <a 
-                    href={`/results/${year}/10th`}
-                    className="flex items-center justify-between w-full bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-slate-100 hover:border-slate-200 transition-all group/btn"
-                  >
-                    <div className="flex items-center gap-3">
-                      <i className={`fas fa-school text-xs ${theme.icon} opacity-50`}></i>
-                      <span className={`text-[10px] font-black uppercase tracking-widest text-slate-700 ${theme.btn}`}>10th Toppers</span>
-                    </div>
-                    <i className={`fas fa-arrow-right text-[8px] text-slate-300 ${theme.icon} group-hover/btn:translate-x-1 transition-all`}></i>
-                  </a>
-
-                  <a 
-                    href={`/results/${year}/plus-two`}
-                    className="flex items-center justify-between w-full bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-slate-100 hover:border-slate-200 transition-all group/btn"
-                  >
-                    <div className="flex items-center gap-3">
-                      <i className={`fas fa-graduation-cap text-xs ${theme.icon} opacity-50`}></i>
-                      <span className={`text-[10px] font-black uppercase tracking-widest text-slate-700 ${theme.btn}`}>+2 Toppers</span>
-                    </div>
-                    <i className={`fas fa-arrow-right text-[8px] text-slate-300 ${theme.icon} group-hover/btn:translate-x-1 transition-all`}></i>
-                  </a>
-                </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="grid grid-cols-2 gap-3 opacity-100 sm:opacity-0 sm:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                    <a 
+                      href={data.link10th}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white text-slate-900 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-400 transition-colors shadow-xl flex items-center justify-center text-center cursor-pointer"
+                    >
+                      10th Results
+                    </a>
+                    <a 
+                      href={data.linkPlusTwo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white/10 backdrop-blur-md border border-white/30 text-white py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all shadow-xl flex items-center justify-center text-center cursor-pointer"
+                    >
+                      +2 Results
+                    </a>
+                  </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 
