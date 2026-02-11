@@ -191,13 +191,13 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                     {currentIndex % 2 === 0 ? (
                       <>
                         <p className="text-white text-[10px] sm:text-xs font-medium tracking-wide drop-shadow-lg opacity-90">
-                          Classes for CBSE 8th, 9th, 10th, 11th and 12th students
+                          Classes for STATE 8th, 9th, 10th, 11th and 12th students
                         </p>
                         <h2 className="text-white text-2xl sm:text-3xl font-black uppercase tracking-tighter leading-none drop-shadow-2xl">
-                          OUR CBSE COURSES <br/> 2025-26
+                          OUR STATE COURSES <br/> 2025-26
                         </h2>
                         <p className="text-white/80 text-[11px] sm:text-sm font-medium italic drop-shadow-lg">
-                          Power packed live interactive sessions
+                          Power packed  interactive sessions
                         </p>
                         <button 
                           onClick={() => setShowMobileEnquiry(true)}
@@ -323,8 +323,8 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
               <div className="w-20 h-2 bg-slate-900 mx-auto lg:mx-0 rounded-full"></div>
               <p className="text-slate-600 font-medium text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
                   Experience the best online & offline tuition classes in Kerala at <span className="font-bold text-slate-900">CENTUM</span>. 
-                  We are passionate about reshaping education through personalized, life-changing online & offline tuition services. 
-                  We provide tailored coaching for both <span className="font-bold text-slate-900">State & CBSE Syllabuses</span> making us the best tuition center for CBSE & State syllabus in Kerala.
+                  We are passionate about reshaping education through personalized, life-changing  offline tuition services. 
+                  We provide tailored coaching for both <span className="font-bold text-slate-900">State & NCERT Syllabuses</span> making us the best tuition center for CBSE & State syllabus in Kerala.
               </p>
               <div className="pt-4">
                   <button 
