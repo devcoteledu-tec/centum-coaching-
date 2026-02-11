@@ -20,10 +20,10 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
     },
     {
       id: 2,
-      title: "State Syllabus",
+      title: "NCERT Syllabus",
       classes: ["+1", "+2"],
       features: [
-        "Online and Offline classes",
+        " Offline classes",
         "Bio Maths, Computer Science, Commerce & Humanities",
         "+1 Entrance - NEET & KEAM"
       ],
@@ -31,7 +31,7 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
     },
     {
       id: 3,
-      title: "CBSE Syllabus",
+      title: "STATE Syllabus",
       classes: ["8", "9"],
       features: [
         "Regular tuition",
@@ -53,8 +53,8 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
         <div className="text-center mb-16 max-w-5xl mx-auto space-y-6">
           <h2 className="text-4xl sm:text-5xl font-black text-slate-900 uppercase tracking-tight">Popular Courses</h2>
           <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed">
-            At CENTUM's tuition centre, we teach every subject for State syllabus Classes 8-10, +1, +2 and CBSE Classes 8-10. 
-            Our online and offline tuition uses chapter-wise expert guidance, daily exams, and study materials to help students 
+            At CENTUM's tuition centre, we teach every subject for State syllabus Classes 8-10, +1, +2 and STATE Classes 8-10. 
+            Our  offline tuition uses chapter-wise expert guidance, daily exams, and study materials to help students 
             master Maths, Science, Social Studies, English, and more. Each class ensures concept clarity, effective revision, 
             and exam success, making CENTUM the top tuition centre in Kerala.
           </p>
