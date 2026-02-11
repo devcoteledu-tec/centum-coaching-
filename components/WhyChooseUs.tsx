@@ -4,7 +4,7 @@ import React from 'react';
 const WhyChooseUs: React.FC = () => {
   const features = [
     { 
-      title: "Live Interactive Online & Offline Classes",
+      title: "Live Interactive Offline Classes",
       icon: "fa-earth-americas", // Globe
       color: "text-blue-500",
       bg: "bg-blue-50"
@@ -68,7 +68,7 @@ const WhyChooseUs: React.FC = () => {
        <div className="max-w-7xl mx-auto text-center relative z-10 mb-12 px-4">
         <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight drop-shadow-md">
           Why Choose Centum's <br className="hidden sm:block"/>
-          Live Interactive Online Classes?
+          Live Interactive Offline Classes?
         </h2>
       </div>
       
