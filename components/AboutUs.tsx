@@ -34,7 +34,7 @@ const AboutUs: React.FC = () => {
         {/* Hero Image */}
         <div className="relative z-10 -mb-1 mt-4">
            <img 
-             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ28SELqMf_xjvFnRvohJuQIuf0cEKM6K9lmA&s?w=1380&t=st=1710330000~exp=1710330600~hmac=..." 
+             src="https://static.vecteezy.com/system/resources/thumbnails/024/620/101/small/group-of-children-studying-together-smiling-and-holding-books-generated-by-ai-free-photo.jpg?q=tbn:ANd9GcQ28SELqMf_xjvFnRvohJuQIuf0cEKM6K9lmA&s?w=1380&t=st=1710330000~exp=1710330600~hmac=..." 
              className="h-[250px] sm:h-[400px] object-cover object-top drop-shadow-xl mask-image-b"
              alt="Happy Students"
              onError={(e) => (e.target as HTMLImageElement).src = 'https://img.freepik.com/free-photo/group-students-posing-together_23-2148166567.jpg'}
