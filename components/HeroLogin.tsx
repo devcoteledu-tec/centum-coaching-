@@ -302,7 +302,7 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
           <div className="relative h-[350px] sm:h-[450px] flex items-center justify-center lg:justify-end lg:pr-10">
               <div className="absolute inset-0 w-full h-full flex justify-center items-center">
                   {/* Black Stripe */}
-                  <div className="absolute w-24 sm:w-36 h-[140%] bg-white-950 -rotate-[35deg] translate-y-20 -translate-x-16 sm:-translate-x-24 opacity-100 z-0"></div>
+                  <div className="absolute w-24 sm:w-36 h-[140%] bg-red-950 -rotate-[35deg] translate-y-20 -translate-x-16 sm:-translate-x-24 opacity-100 z-0"></div>
                   {/* Red Stripe */}
                   <div className="absolute w-24 sm:w-36 h-[140%] bg-blue-600 -rotate-[35deg] -translate-y-20 translate-x-16 sm:translate-x-24 opacity-100 z-0"></div>
               </div>
