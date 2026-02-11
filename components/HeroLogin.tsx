@@ -308,7 +308,7 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
               </div>
               
               <img 
-                  src="https://thumbs.wbm.im/pw/small/abe6b82adabc48a0e4973678baa9e4dd.png" 
+                  src="https://png.pngtree.com/png-clipart/20240318/original/pngtree-3d-render-student-studying-concept-png-image_14621217.png" 
                   alt="About Centum"
                   className="relative z-10 h-full w-auto object-contain drop-shadow-2xl"
               />
