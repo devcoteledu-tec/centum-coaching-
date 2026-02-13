@@ -14,16 +14,17 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
   const loginUrl = "https://img.freepik.com/free-vector/login-template_1017-6719.jpg";
 
   const institutionalLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'about-us', label: 'About Us' },
-    { id: 'blogs', label: 'Blogs' },
-    { id: 'news', label: 'News' },
-    { id: 'results', label: 'Results' },
-    { id: 'useful-links', label: 'Useful Links' },
+    { id: 'home', label: 'Home', icon: 'fa-house' },
+    { id: 'about-us', label: 'About Us', icon: 'fa-university' },
+    { id: 'blogs', label: 'Blogs', icon: 'fa-book-open' },
+    { id: 'news', label: 'News', icon: 'fa-newspaper' },
+    { id: 'results', label: 'Results', icon: 'fa-trophy' },
+    { id: 'useful-links', label: 'Useful Links', icon: 'fa-link' },
   ];
 
   const academicDropdown = {
     label: 'Programs',
+    icon: 'fa-graduation-cap',
     items: [
       { label: '+1 Coaching', id: 'online-admission' },
       { label: '+2 Coaching', id: 'online-admission' },
@@ -34,6 +35,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
 
   const admissionDropdown = {
     label: 'Admission',
+    icon: 'fa-id-card',
     items: [
       { label: 'Online Registration', id: 'online-admission' },
       { label: 'Fee Structure', id: 'online-admission' },
@@ -43,6 +45,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
 
   const contactDropdown = {
     label: 'Contact Us',
+    icon: 'fa-headset',
     items: [
       { label: 'Contact Details', id: 'contact-us' },
       { label: 'Our Centers', id: 'centers' },
@@ -66,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
 
       {/* 2. Top Secondary Bar (Hidden on Mobile) */}
       <div className="bg-slate-50 border-b border-slate-100 py-2.5 px-6 lg:px-12 hidden md:block">
-        <div className="max-w-[1600px] mx-auto flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-slate-500">
+        <div className="max-w-[1600px] mx-auto flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-slate-700">
           <div className="flex items-center gap-8">
             <span className="flex items-center gap-2">
               <i className="fas fa-phone-alt text-red-800"></i>
@@ -108,7 +111,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 className={`px-3 xl:px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all whitespace-nowrap ${
                   activeTab === item.id 
                     ? 'text-red-800 bg-red-50 shadow-sm' 
-                    : 'text-slate-600 hover:text-red-800 hover:bg-slate-50'
+                    : 'text-slate-800 hover:text-red-800 hover:bg-slate-50'
                 }`}
               >
                 {item.label}
@@ -125,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 <button className={`px-3 xl:px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all flex items-center gap-2 whitespace-nowrap ${
-                  activeDropdown === dropdown.label || dropdown.items.some(i => i.id === activeTab) ? 'text-red-800 bg-red-50' : 'text-slate-600 hover:text-red-800'
+                  activeDropdown === dropdown.label || dropdown.items.some(i => i.id === activeTab) ? 'text-red-800 bg-red-50' : 'text-slate-800 hover:text-red-800'
                 }`}>
                   {dropdown.label}
                   <i className={`fas fa-chevron-down text-[7px] transition-transform duration-300 ${activeDropdown === dropdown.label ? 'rotate-180' : ''}`}></i>
@@ -141,7 +144,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                       className={`w-full text-left block px-7 py-3 text-[10px] font-bold transition-all border-l-4 ${
                         activeTab === opt.id 
                           ? 'text-red-800 bg-red-50 border-red-800' 
-                          : 'text-slate-600 hover:bg-slate-50 hover:text-red-800 border-transparent hover:border-red-800'
+                          : 'text-slate-700 hover:bg-slate-50 hover:text-red-800 border-transparent hover:border-red-800'
                       }`}
                     >
                       {opt.label}
@@ -163,71 +166,120 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           >
             Login Portal
           </a>
-          <button onClick={toggleMobileMenu} className={`xl:hidden p-2 hover:bg-white/10 rounded-xl transition-all ${activeTab === 'home' && !isMobileMenuOpen ? 'text-white' : 'text-slate-900'}`}>
-            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars-staggered'} text-xl sm:text-2xl`}></i>
+          <button onClick={toggleMobileMenu} className={`xl:hidden p-3 rounded-2xl transition-all ${activeTab === 'home' && !isMobileMenuOpen ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-900'} active:scale-90`}>
+            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars-staggered'} text-xl`}></i>
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Drawer */}
+      {/* Upgrade Mobile Menu Drawer */}
       {isMobileMenuOpen && (
-        <div className="xl:hidden fixed inset-0 z-[150] bg-white animate-in slide-in-from-right duration-300 flex flex-col overflow-y-auto">
-          <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+        <div className="xl:hidden fixed inset-0 z-[150] bg-white animate-in slide-in-from-right-full duration-500 ease-out flex flex-col overflow-hidden">
+          {/* Header area of Menu */}
+          <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-white sticky top-0 z-[160]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl overflow-hidden border border-slate-100 p-1">
+              <div className="w-10 h-10 rounded-xl overflow-hidden border border-slate-100 p-1 bg-white shadow-sm">
                 <img src={logoUrl} alt="Logo" className="w-full h-full object-contain" />
               </div>
-              <h2 className="font-black text-slate-900 tracking-tighter uppercase leading-none text-sm">CENTUM <span className="text-red-800">CPY</span></h2>
+              <div>
+                <h2 className="font-black text-slate-900 tracking-tighter uppercase leading-none text-sm">CENTUM <span className="text-red-800">CPY</span></h2>
+                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Cherpulassery</p>
+              </div>
             </div>
-            <button onClick={toggleMobileMenu} className="p-3 text-slate-400 hover:text-red-800 transition-colors">
-              <i className="fas fa-times text-2xl"></i>
+            <button onClick={toggleMobileMenu} className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 hover:text-red-800 transition-colors flex items-center justify-center">
+              <i className="fas fa-times text-lg"></i>
             </button>
           </div>
           
-          <div className="flex-1 p-6 space-y-10 pb-20">
-            <div className="space-y-3">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 px-4">Main Navigation</p>
-              {institutionalLinks.map((item) => (
-                <button 
-                  key={item.id}
-                  onClick={() => { setActiveTab(item.id); setIsMobileMenuOpen(false); }} 
-                  className={`w-full text-left py-4 px-6 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${
-                    activeTab === item.id ? 'bg-red-800 text-white shadow-xl' : 'text-slate-900 hover:bg-slate-50'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+          {/* Content area with staggered animations */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-8 pb-32">
+            
+            {/* Main Links */}
+            <div className="space-y-1">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 px-2">Navigation</p>
+              <div className="grid grid-cols-2 gap-2">
+                {institutionalLinks.map((item, idx) => (
+                  <button 
+                    key={item.id}
+                    onClick={() => { setActiveTab(item.id); setIsMobileMenuOpen(false); }} 
+                    style={{ animationDelay: `${idx * 50}ms` }}
+                    className={`flex flex-col items-center gap-3 p-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-widest transition-all border animate-in slide-in-from-bottom-4 duration-500 fill-mode-both ${
+                      activeTab === item.id 
+                        ? 'bg-red-800 text-white border-red-900 shadow-xl' 
+                        : 'bg-slate-50 text-slate-700 border-transparent hover:bg-slate-100'
+                    } active:scale-95`}
+                  >
+                    <i className={`fas ${item.icon} text-lg mb-1`}></i>
+                    {item.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {[academicDropdown, admissionDropdown, contactDropdown].map((group) => (
-              <div key={group.label} className="space-y-4">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-2 px-4">{group.label}</p>
-                <div className="grid grid-cols-1 gap-1 pl-4">
+            {/* Dropdown Groups as Cards */}
+            {[academicDropdown, admissionDropdown, contactDropdown].map((group, groupIdx) => (
+              <div 
+                key={group.label} 
+                className="space-y-4 animate-in slide-in-from-bottom-6 duration-700 fill-mode-both"
+                style={{ animationDelay: `${(institutionalLinks.length * 50) + (groupIdx * 100)}ms` }}
+              >
+                <div className="flex items-center gap-3 px-2">
+                  <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-red-800 text-xs shadow-sm">
+                    <i className={`fas ${group.icon}`}></i>
+                  </div>
+                  <p className="text-[10px] font-black text-slate-900 uppercase tracking-[0.2em]">{group.label}</p>
+                </div>
+                
+                <div className="bg-slate-50/50 border border-slate-100 rounded-[2rem] p-2 space-y-1">
                   {group.items.map((opt, i) => (
                     <button 
                       key={i} 
                       onClick={() => { setActiveTab(opt.id!); setIsMobileMenuOpen(false); }}
-                      className={`text-left text-[13px] font-bold py-3.5 px-4 rounded-xl transition-colors ${
-                        activeTab === opt.id ? 'text-red-800 bg-red-50' : 'text-slate-600 hover:bg-red-50 hover:text-red-800'
+                      className={`w-full text-left text-[11px] font-black py-4 px-6 rounded-2xl transition-all uppercase tracking-widest flex items-center justify-between ${
+                        activeTab === opt.id ? 'text-red-800 bg-white shadow-sm' : 'text-slate-600 hover:bg-white/50'
                       }`}
                     >
                       {opt.label}
+                      <i className="fas fa-chevron-right text-[8px] opacity-30"></i>
                     </button>
                   ))}
                 </div>
               </div>
             ))}
+
+            {/* Bottom Contact Info Strip */}
+            <div 
+              className="bg-slate-950 rounded-[2rem] p-6 text-white animate-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+              style={{ animationDelay: '600ms' }}
+            >
+              <h4 className="text-[9px] font-black text-red-500 uppercase tracking-widest mb-4">Quick Support</h4>
+              <div className="space-y-4">
+                <a href="tel:+917593038781" className="flex items-center gap-4 group">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center group-active:scale-90 transition-transform">
+                    <i className="fas fa-phone-alt text-xs"></i>
+                  </div>
+                  <span className="text-xs font-bold">+91 7593038781</span>
+                </a>
+                <div className="flex gap-2">
+                   {['facebook-f', 'instagram', 'youtube', 'whatsapp'].map(soc => (
+                     <a key={soc} href="#" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-red-800 transition-colors">
+                       <i className={`fab fa-${soc} text-xs`}></i>
+                     </a>
+                   ))}
+                </div>
+              </div>
+            </div>
           </div>
           
-          <div className="p-6 border-t border-slate-100 fixed bottom-0 w-full bg-white">
+          {/* Fixed Footer CTA */}
+          <div className="p-6 bg-white border-t border-slate-100 sticky bottom-0 w-full z-[170] shadow-[0_-10px_30px_rgba(0,0,0,0.03)]">
             <a 
               href={loginUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-red-800 text-white py-5 text-center rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl"
+              className="block w-full bg-red-800 text-white py-5 text-center rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-red-900/10 active:scale-95 transition-all"
             >
-              Student Portal Login
+              <i className="fas fa-user-lock mr-2"></i> Student Portal Login
             </a>
           </div>
         </div>
