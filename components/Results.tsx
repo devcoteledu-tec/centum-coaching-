@@ -24,56 +24,56 @@ const Results: React.FC = () => {
   const resultYearsData = [
     { 
       year: 2025, 
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800", 
+      image: "https://www.smartbrief.com/wp-content/uploads/2024/10/GettyImages-1805644172.jpg", 
       highlight: "Admissions Open",
       link10th: "#",
       linkPlusTwo: "#"
     },
     { 
       year: 2024, 
-      image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=800", 
+      image: "https://www.serviceoneac.com/images/2024-big-events-to-prepare-for.jpg", 
       highlight: "Record Breaking",
       link10th: "#",
       linkPlusTwo: "#"
     },
     { 
       year: 2023, 
-      image: "https://images.unsplash.com/photo-1523240715639-99a8a7ae9b18?auto=format&fit=crop&q=80&w=800", 
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWkd_C_01GHqJoX6wgG0J_L3ZOGfjDDzf_BA&s", 
       highlight: "100% Pass Rate",
       link10th: "#",
       linkPlusTwo: "#"
     },
     { 
       year: 2022, 
-      image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&q=80&w=800", 
+      image: "https://spiceenquirer.com/wp-content/uploads/2022/01/2022-The-quintessentially-year-or-not.jpg", 
       highlight: "Top Ranks",
       link10th: "#",
       linkPlusTwo: "#"
     },
     { 
       year: 2021, 
-      image: "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&q=80&w=800", 
+      image: "https://thumbs.dreamstime.com/b/happy-new-year-logo-logo-merry-christmas-happy-new-year-seasonal-calender-numbers-concept-minimalism-style-script-abstract-168012924.jpg", 
       highlight: "Excellence",
       link10th: "#",
       linkPlusTwo: "#"
     },
     { 
       year: 2020, 
-      image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=800", 
+      image: "https://media.licdn.com/dms/image/v2/C5612AQFB-D6NT6HwYQ/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1609752472264?e=2147483647&v=beta&t=rSfwXQgapD7esQj7RiGeit1RXN7ITJOwaCVux1pCqmY", 
       highlight: "State Best",
       link10th: "#",
       linkPlusTwo: "#"
     },
     { 
       year: 2019, 
-      image: "https://images.unsplash.com/photo-1427504746696-ea5abd71a32f?auto=format&fit=crop&q=80&w=800", 
+      image: "https://t4.ftcdn.net/jpg/02/15/94/85/360_F_215948538_yEe5PybuslHpgngDK41voVyn55TdmR6b.jpg", 
       highlight: "Success",
       link10th: "#",
       linkPlusTwo: "#"
     },
     { 
       year: 2018, 
-      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800", 
+      image: "https://images.squarespace-cdn.com/content/v1/52d6d1ede4b0b322e9c7a2ea/1530544567046-C925UETRQIIHWZ8GEC21/Happy-new-year-2018.jpg", 
       highlight: "Legacy",
       link10th: "#",
       linkPlusTwo: "#"
