@@ -80,10 +80,9 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
   const [blogsLoading, setBlogsLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showMobileEnquiry, setShowMobileEnquiry] = useState(false);
+  const [hideMobileOverlays, setHideMobileOverlays] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const loginUrl = "https://img.freepik.com/free-vector/login-template_1017-6719.jpg";
-  const whatsappUrl = "https://wa.me/917593038781?text=i%20would%20like%20to%20join%20centum";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,14 +107,14 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
   }, []);
 
   useEffect(() => {
-    if (loading || brochures.length <= 1 || showMobileEnquiry) return;
+    if (loading || brochures.length <= 1 || showMobileEnquiry || isFullscreen) return;
     
     const interval = setInterval(() => {
       handleNext();
     }, 5000);
     
     return () => clearInterval(interval);
-  }, [loading, brochures, showMobileEnquiry, currentIndex]);
+  }, [loading, brochures, showMobileEnquiry, currentIndex, isFullscreen]);
 
   const handleNext = () => {
     if (scrollContainerRef.current && brochures.length > 0) {
@@ -143,26 +142,42 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
 
   return (
     <div className="animate-in fade-in duration-700">
+      {/* Fullscreen Lightbox for Brochures */}
+      {isFullscreen && brochures[currentIndex] && (
+        <div className="fixed inset-0 z-[1000] bg-black flex items-center justify-center animate-in zoom-in-95 duration-300">
+           <button 
+             onClick={() => setIsFullscreen(false)}
+             className="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white text-white hover:text-black rounded-full flex items-center justify-center transition-all z-[1010]"
+           >
+             <i className="fas fa-times text-xl"></i>
+           </button>
+           <img 
+             src={brochures[currentIndex].image_url} 
+             className="max-w-full max-h-full object-contain" 
+             alt="Full Brochure"
+           />
+        </div>
+      )}
+
       {/* 1. Brochure Gallery */}
-      <section className="relative overflow-hidden shadow-2xl bg-slate-100 group -mx-4 sm:-mx-8 lg:-mx-16 z-0">
+      <section className="relative overflow-hidden bg-transparent group -mx-4 sm:-mx-8 lg:-mx-16 z-0">
         {loading ? (
-          <div className="w-full h-[350px] sm:h-[500px] lg:h-[650px] xl:h-[800px] flex items-center justify-center">
+          <div className="w-full h-[350px] sm:h-[500px] lg:h-[650px] flex items-center justify-center">
             <div className="flex flex-col items-center gap-4">
                <div className="w-8 h-8 sm:w-10 sm:h-10 border-4 border-red-800 border-t-transparent rounded-full animate-spin"></div>
-               <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400">Loading Content...</span>
+               <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-600">Loading Content...</span>
             </div>
           </div>
         ) : brochures.length > 0 ? (
-          <div className="relative h-[60vh] sm:h-[70vh] lg:h-[85vh] xl:h-[90vh] min-h-[500px]">
-            <div ref={scrollContainerRef} className="flex overflow-hidden w-full h-full">
+          <div className="relative w-full h-auto">
+            <div ref={scrollContainerRef} className="flex overflow-hidden w-full">
               {brochures.map((item) => (
-                <div key={item.id} className="shrink-0 w-full h-full relative">
+                <div key={item.id} className="shrink-0 w-full relative flex items-center justify-center">
                   <img 
                     src={item.image_url} 
-                    className="w-full h-full object-cover block border-none transition-transform duration-[10s] hover:scale-105" 
+                    className="w-full h-auto max-h-[90vh] object-contain block border-none transition-transform duration-[10s] hover:scale-105" 
                     alt={item.description || item.title || "Centum Education"} 
                   />
-                  <div className="absolute inset-0 bg-black/40 lg:bg-black/10 transition-colors duration-1000"></div>
                 </div>
               ))}
             </div>
@@ -174,12 +189,13 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                 </div>
               </div>
 
-              <div className="lg:hidden w-full text-center flex flex-col items-center justify-center pointer-events-auto animate-in fade-in duration-500">
+              {/* Mobile Interaction Controls */}
+              <div className={`lg:hidden w-full text-center flex flex-col items-center justify-center pointer-events-auto animate-in fade-in duration-500 transition-opacity duration-300 ${hideMobileOverlays ? 'opacity-0' : 'opacity-100'}`}>
                 {showMobileEnquiry ? (
                   <div className="w-full flex flex-col items-center animate-in zoom-in-95 duration-500">
                     <button 
                       onClick={() => setShowMobileEnquiry(false)}
-                      className="mb-4 text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-[10px] font-black uppercase tracking-widest flex items-center gap-2"
+                      className="mb-4 text-white bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-[10px] font-black uppercase tracking-widest flex items-center gap-2"
                     >
                       <i className="fas fa-arrow-left"></i>
                       Close Form
@@ -190,51 +206,32 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                   <div className="space-y-4 animate-in slide-in-from-bottom-8 duration-700 animate-gentle-nudge">
                     {currentIndex % 2 === 0 ? (
                       <>
-                        <p className="text-white text-[10px] sm:text-xs font-medium tracking-wide drop-shadow-lg opacity-90">
-                          Classes for STATE 8th, 9th, 10th, 11th and 12th students
+                        <p className="text-white text-[10px] sm:text-xs font-medium tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] opacity-100">
+                          Classes for STATES 8th, 9th, 10th, 11th and 12th students
                         </p>
-                        <h2 className="text-white text-2xl sm:text-3xl font-black uppercase tracking-tighter leading-none drop-shadow-2xl">
+                        <h2 className="text-white text-2xl sm:text-3xl font-black uppercase tracking-tighter leading-none drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">
                           OUR STATE COURSES <br/> 2025-26
                         </h2>
-                        <p className="text-white/80 text-[11px] sm:text-sm font-medium italic drop-shadow-lg">
-                          Power packed  interactive sessions
-                        </p>
                         <button 
                           onClick={() => setShowMobileEnquiry(true)}
                           className="mt-2 bg-[#00b894] hover:bg-emerald-400 text-white px-8 py-3.5 rounded-full font-black text-[10px] uppercase tracking-widest shadow-[0_10px_30px_rgba(0,184,148,0.4)] transition-all active:scale-95"
                         >
-                          Read More
+                          Enquire Now
                         </button>
                       </>
                     ) : (
                       <>
-                        <p className="text-white text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] drop-shadow-lg opacity-90">
+                        <p className="text-white text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] opacity-100">
                           2024 - 2025 Academic Year
                         </p>
-                        <h2 className="text-white text-2xl sm:text-3xl font-black uppercase tracking-tighter leading-none drop-shadow-2xl">
+                        <h2 className="text-white text-2xl sm:text-3xl font-black uppercase tracking-tighter leading-none drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">
                           Our 10th/ Plus Two Results
                         </h2>
-                        <div className="flex flex-col items-center gap-3 mt-4">
-                          <div className="flex items-center gap-4 bg-black/40 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/10 shadow-lg">
-                             <i className="fas fa-trophy text-amber-400 text-lg"></i>
-                             <div className="text-left">
-                               <p className="text-white text-xl font-black leading-none">1330</p>
-                               <p className="text-white/70 text-[8px] font-bold uppercase tracking-widest">Full A+/A1 in 10th</p>
-                             </div>
-                          </div>
-                          <div className="flex items-center gap-4 bg-black/40 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/10 shadow-lg">
-                             <i className="fas fa-medal text-slate-200 text-lg"></i>
-                             <div className="text-left">
-                               <p className="text-white text-xl font-black leading-none">365</p>
-                               <p className="text-white/70 text-[8px] font-bold uppercase tracking-widest">Full A+/A1 in Plus Two</p>
-                             </div>
-                          </div>
-                        </div>
                         <button 
                           onClick={() => setShowMobileEnquiry(true)}
                           className="mt-4 bg-[#00b894] hover:bg-emerald-400 text-white px-8 py-3.5 rounded-full font-black text-[10px] uppercase tracking-widest shadow-[0_10px_30px_rgba(0,184,148,0.4)] transition-all active:scale-95"
                         >
-                          Book a Demo Class
+                          Book Demo
                         </button>
                       </>
                     )}
@@ -243,97 +240,97 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 lg:hidden z-50 transition-opacity duration-300 ${showMobileEnquiry ? 'opacity-0' : 'opacity-100'}`}>
+            {/* Mobile Visibility Toggles */}
+            <div className="absolute top-4 right-4 flex flex-col gap-2 z-50 lg:hidden">
+              <button 
+                onClick={() => setHideMobileOverlays(!hideMobileOverlays)}
+                className="w-10 h-10 bg-black/40 backdrop-blur-md text-white rounded-full flex items-center justify-center border border-white/20 active:scale-90 transition-all shadow-lg"
+              >
+                <i className={`fas ${hideMobileOverlays ? 'fa-eye' : 'fa-eye-slash'} text-xs`}></i>
+              </button>
+              <button 
+                onClick={() => setIsFullscreen(true)}
+                className="w-10 h-10 bg-black/40 backdrop-blur-md text-white rounded-full flex items-center justify-center border border-white/20 active:scale-90 transition-all shadow-lg"
+              >
+                <i className="fas fa-expand text-xs"></i>
+              </button>
+            </div>
+
+            <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 lg:hidden z-50 transition-opacity duration-300 ${showMobileEnquiry || hideMobileOverlays ? 'opacity-0' : 'opacity-100'}`}>
                {brochures.map((_, i) => (
-                 <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-8 bg-[#00b894]' : 'w-2 bg-white/40'}`}></div>
+                 <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-8 bg-[#00b894]' : 'w-2 bg-slate-400'}`}></div>
                ))}
             </div>
 
-            <button onClick={handlePrev} className="hidden lg:flex absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 h-16 bg-white/10 hover:bg-white backdrop-blur-md rounded-full items-center justify-center text-white hover:text-red-800 transition-all opacity-0 group-hover:opacity-100 border border-white/20 shadow-2xl z-50 group/btn">
+            <button onClick={handlePrev} className="hidden lg:flex absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 h-16 bg-white/40 hover:bg-slate-900 backdrop-blur-sm rounded-full items-center justify-center text-slate-800 hover:text-white transition-all opacity-0 group-hover:opacity-100 border border-slate-200/50 shadow-2xl z-50 group/btn">
               <i className="fas fa-arrow-left text-sm transition-transform group-hover/btn:-translate-x-1"></i>
             </button>
-            <button onClick={handleNext} className="hidden lg:flex absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 h-16 bg-white/10 hover:bg-white backdrop-blur-md rounded-full items-center justify-center text-white hover:text-red-800 transition-all opacity-0 group-hover:opacity-100 border border-white/20 shadow-2xl z-50 group/btn">
+            <button onClick={handleNext} className="hidden lg:flex absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 h-16 bg-white/40 hover:bg-slate-900 backdrop-blur-sm rounded-full items-center justify-center text-slate-800 hover:text-white transition-all opacity-0 group-hover:opacity-100 border border-slate-200/50 shadow-2xl z-50 group/btn">
               <i className="fas fa-arrow-right text-sm transition-transform group-hover/btn:translate-x-1"></i>
             </button>
           </div>
         ) : (
-          <div className="w-full h-[400px] bg-slate-50 flex items-center justify-center">
-            <p className="font-black uppercase tracking-widest text-slate-400 text-[10px] sm:text-xs text-center px-4">Catalogue information currently unavailable.</p>
+          <div className="w-full h-[400px] bg-transparent flex items-center justify-center">
+            <p className="font-black uppercase tracking-widest text-slate-700 text-[10px] sm:text-xs text-center px-4">Catalogue information currently unavailable.</p>
           </div>
         )}
       </section>
 
-      {/* 2. Dashboard Bar - Full Width Transition */}
-      <section className="relative z-10 -mx-4 sm:-mx-8 lg:-mx-16 bg-gradient-to-r from-blue-700 to-blue-900 border-y border-blue-950/20 px-6 sm:px-10 lg:px-16 py-8 lg:py-12 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-6 text-center md:text-left">
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-          <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-2xl flex items-center justify-center text-blue-700 shadow-xl shadow-blue-900/20 shrink-0">
-            <i className="fas fa-user-lock text-sm sm:text-lg"></i>
-          </div>
-          <div>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">Student Dashboard</h2>
-            <p className="text-blue-100 text-[11px] sm:text-sm font-medium mt-1">Quick access to resources and portal login.</p>
-          </div>
-        </div>
-        <div className="flex gap-3 w-full sm:w-auto">
-          <a 
-            href={loginUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 sm:flex-none px-6 lg:px-10 py-4 text-center bg-white text-blue-900 rounded-xl lg:rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-50 transition-colors shadow-xl active:scale-95"
-          >
-             Login
-          </a>
-          <a 
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 sm:flex-none px-6 lg:px-10 py-4 text-center bg-transparent border border-white/40 text-white rounded-xl lg:rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all active:scale-95"
-          >
-            Register
-          </a>
-        </div>
-      </section>
-
-      {/* 2.5 New About Centum Section (Design Match) */}
-      <section className="bg-white py-16 lg:py-24 relative overflow-hidden -mx-4 sm:-mx-8 lg:-mx-16 px-4 sm:px-8 lg:px-16">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          
-          {/* Image Side with Stripes */}
-          <div className="relative h-[350px] sm:h-[450px] flex items-center justify-center lg:justify-end lg:pr-10">
-              <div className="absolute inset-0 w-full h-full flex justify-center items-center">
-                  {/* Black Stripe */}
-                  <div className="absolute w-24 sm:w-36 h-[140%] bg-red-950 -rotate-[35deg] translate-y-20 -translate-x-16 sm:-translate-x-24 opacity-100 z-0"></div>
-                  {/* Red Stripe */}
-                  <div className="absolute w-24 sm:w-36 h-[140%] bg-blue-600 -rotate-[35deg] -translate-y-20 translate-x-16 sm:translate-x-24 opacity-100 z-0"></div>
+      {/* Styled About Centum Section to match Reference Image - Reduced margin/gap */}
+      <section className="bg-white pt-8 pb-16 sm:pt-10 sm:pb-20 -mx-4 sm:-mx-8 lg:-mx-16 px-4 sm:px-8 lg:px-16 overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+            
+            {/* Visual Part with Diagonal Stripes - Further reduced dimensions */}
+            <div className="relative flex justify-center items-center h-[200px] sm:h-[260px]">
+              {/* Geometric Background Bands - Smaller footprint */}
+              <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+                <div className="relative w-full h-full max-w-[220px] overflow-hidden">
+                   {/* Diagonal Stripes Container */}
+                   <div className="absolute inset-0 origin-center rotate-[45deg] scale-150 flex flex-col gap-6">
+                      <div className="w-full h-10 bg-zinc-900"></div>
+                      <div className="w-full h-4 bg-transparent"></div>
+                      <div className="w-full h-10 bg-red-600"></div>
+                      <div className="w-full h-4 bg-transparent"></div>
+                      <div className="w-full h-10 bg-zinc-900"></div>
+                   </div>
+                </div>
               </div>
-              
-              <img 
-                  src="https://static.vecteezy.com/system/resources/previews/041/930/918/non_2x/ai-generated-magic-butterfly-isolated-on-transparent-background-free-png.png" 
-                  alt="About Centum"
-                  className="relative z-10 h-full w-auto object-contain drop-shadow-2xl"
-              />
-          </div>
 
-          {/* Content Side */}
-          <div className="space-y-6 text-center lg:text-left relative z-10">
-              <h2 className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tighter uppercase leading-[0.9]">
-                  About <br/>
-                  <span className="text-red-700">CENTUM</span>
-              </h2>
-              <div className="w-20 h-2 bg-slate-900 mx-auto lg:mx-0 rounded-full"></div>
-              <p className="text-slate-600 font-medium text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
-                  Experience the best online & offline tuition classes in Kerala at <span className="font-bold text-slate-900">CENTUM</span>. 
-                  We are passionate about reshaping education through personalized, life-changing  offline tuition services. 
-                  We provide tailored coaching for both <span className="font-bold text-slate-900">State & NCERT Syllabuses</span> making us the best tuition center for CBSE & State syllabus in Kerala.
-              </p>
-              <div className="pt-4">
-                  <button 
-                      onClick={() => onNavigate?.('about-us')}
-                      className="bg-red-700 text-white px-10 py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-900 transition-all shadow-xl shadow-red-900/20 active:scale-95 inline-flex items-center gap-3"
-                  >
-                      Read More <i className="fas fa-arrow-right"></i>
-                  </button>
+              {/* Student Image - Further reduced size */}
+              <div className="relative z-10 w-full max-w-[180px] drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)] animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                <img 
+                  src="https://static.vecteezy.com/system/resources/previews/034/966/435/non_2x/ai-generated-portrait-of-student-background-free-png.png" 
+                  alt="Student at Centum"
+                  className="w-full h-auto object-contain"
+                />
               </div>
+            </div>
+
+            {/* Content Part */}
+            <div className="space-y-6 text-center lg:text-left">
+              <div className="space-y-3">
+                <h2 className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-none uppercase">
+                  About <br/> 
+                  <span className="text-slate-900">#</span><span className="text-red-600">CENTUM</span>
+                </h2>
+                
+                <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-medium max-w-xl mx-auto lg:mx-0">
+                  Experience the best  offline coaching classes in Kerala at CENTUM. We are passionate about reshaping education through personalized, life-changing  offline tuition services. We provide tailored coaching for  State  Syllabuses making us the best tuition center for State syllabus in Kerala.
+                </p>
+              </div>
+
+              <div className="pt-2 flex justify-center lg:justify-start">
+                <button 
+                  onClick={() => onNavigate?.('about-us')}
+                  className="bg-red-600 text-white px-8 py-3.5 rounded-xl font-black text-[11px] uppercase tracking-widest flex items-center gap-3 hover:bg-red-700 transition-all shadow-[0_10px_20px_rgba(220,38,38,0.15)] active:scale-95"
+                >
+                  Read more
+                  <i className="fas fa-arrow-right text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -341,23 +338,23 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
       {/* 3. Main Content Sections */}
       <div className="space-y-10 sm:space-y-16 py-8 sm:py-12">
         <FeaturedCourses onNavigate={onNavigate} />
-        <TeachingHeart />
-        <NewsAnnouncements onNavigate={onNavigate} />
         
-        {/* Why Choose Us Section - Moved here */}
+        {/* Moved Why Choose Us Section here just after popular courses */}
         <WhyChooseUs />
 
+        <TeachingHeart />
+        <NewsAnnouncements onNavigate={onNavigate} />
         <Testimonials onNavigate={onNavigate} />
 
         {/* Blog Preview Section */}
-        <section className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
           <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12 gap-6">
             <div className="text-center sm:text-left">
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 flex items-center justify-center sm:justify-start gap-3">
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 flex items-center justify-center sm:justify-start gap-3 uppercase tracking-tight">
                 <i className="fas fa-feather-pointed text-red-800"></i>
                 Latest Academic Blogs
               </h3>
-              <p className="text-slate-500 text-sm font-medium mt-1">Expert insights to supercharge your preparation.</p>
+              <p className="text-slate-700 text-sm font-medium mt-1">Expert insights to supercharge your preparation.</p>
             </div>
             <button 
               onClick={() => onNavigate?.('blogs')}
@@ -388,26 +385,26 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                     </div>
                   </div>
                   <div className="p-8 flex flex-col flex-1">
-                    <div className="flex items-center justify-between text-[8px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                    <div className="flex items-center justify-between text-[8px] font-black text-slate-600 uppercase tracking-widest mb-4">
                       <span>{new Date(blog.created_at).toLocaleDateString()}</span>
                       <span>{blog.read_time}</span>
                     </div>
                     <h4 className="text-lg font-black text-slate-900 group-hover:text-red-800 transition-colors leading-tight line-clamp-2 mb-4">
                       {blog.title}
                     </h4>
-                    <p className="text-xs text-slate-500 font-medium leading-relaxed line-clamp-3 mb-8">
+                    <p className="text-xs text-slate-800 font-medium leading-relaxed line-clamp-3 mb-8">
                       {blog.excerpt}
                     </p>
                     <div className="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
                        <span className="text-[9px] font-black text-red-800 uppercase tracking-widest">Read Article</span>
-                       <i className="fas fa-arrow-right text-[10px] text-slate-300 group-hover:text-red-800 group-hover:translate-x-1 transition-all"></i>
+                       <i className="fas fa-arrow-right text-[10px] text-slate-700 group-hover:text-red-800 group-hover:translate-x-1 transition-all"></i>
                     </div>
                   </div>
                 </a>
               ))
             ) : (
               <div className="col-span-full py-16 text-center bg-slate-50 rounded-[3rem] border border-dashed border-slate-200">
-                <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">No blogs available at the moment.</p>
+                <p className="text-slate-700 font-black uppercase tracking-widest text-[10px]">No blogs available at the moment.</p>
               </div>
             )}
           </div>
@@ -438,7 +435,7 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                 <div className="text-white text-3xl sm:text-5xl lg:text-7xl font-black leading-none tracking-tighter mb-2 sm:mb-4 drop-shadow-xl">
                   <Counter value={s.val} />
                 </div>
-                <p className="text-[7px] sm:text-[9px] lg:text-[10px] font-black text-white/80 uppercase tracking-[0.15em] sm:tracking-[0.3em] border-t border-white/10 pt-3 sm:pt-4 w-full max-w-[90px] sm:max-w-[140px]">
+                <p className="text-[7px] sm:text-[9px] lg:text-[10px] font-black text-white uppercase tracking-[0.15em] sm:tracking-[0.3em] border-t border-white/20 pt-3 sm:pt-4 w-full max-w-[90px] sm:max-w-[140px]">
                   {s.label}
                 </p>
               </div>
