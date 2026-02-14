@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
       <div className="ticker-wrapper relative z-[110] border-b border-white/10 hidden md:block">
         <div className="ticker-text text-[10px] font-bold uppercase tracking-[0.2em]">
           <span className="mx-12"><i className="fas fa-fire-flame-curved mr-2"></i> Admissions Open for 2025-26 Academic Year</span>
-          <span className="mx-12"><i className="fas fa-trophy mr-2"></i> Centum Scholarship Test (CST) Registration Now Active</span>
+          <span className="mx-12"><i className="fas fa-trophy mr-2"></i> Centum Scholarship Test (CST) is Now Active</span>
           <span className="mx-12"><i className="fas fa-bullhorn mr-2"></i> Congratulations to our 2025 Top Rankers </span>
         </div>
       </div>
@@ -97,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             <img src={logoUrl} alt="Centum Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className={`text-lg sm:text-xl font-black tracking-tighter leading-none uppercase shrink-0 transition-colors ${activeTab === 'home' ? 'xl:text-slate-900 text-white' : 'text-slate-900'}`}>
-            CENTUM <span className="text-red-800">CPY</span>
+            CENTUM <span className="text-red-800">Cherpulassery</span>
           </h1>
         </div>
 
@@ -166,8 +166,8 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           >
             Login Portal
           </a>
-          <button onClick={toggleMobileMenu} className={`xl:hidden p-3 rounded-2xl transition-all ${activeTab === 'home' && !isMobileMenuOpen ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-900'} active:scale-90`}>
-            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars-staggered'} text-xl`}></i>
+          <button onClick={toggleMobileMenu} className={`xl:hidden p-3 rounded-2xl transition-all ${activeTab === 'home' && !isMobileMenuOpen ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-900'} active:scale-90 relative z-[160]`}>
+            <i className={`fas ${isMobileMenuOpen ? 'fa-bars-staggered' : 'fa-bars-staggered'} text-xl`}></i>
           </button>
         </div>
       </nav>
@@ -175,7 +175,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
       {/* Upgrade Mobile Menu Drawer */}
       {isMobileMenuOpen && (
         <div className="xl:hidden fixed inset-0 z-[150] bg-white animate-in slide-in-from-right-full duration-500 ease-out flex flex-col overflow-hidden">
-          {/* Header area of Menu */}
+          {/* Header area of Menu - Removed Redundant Cross Icon */}
           <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-white sticky top-0 z-[160]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl overflow-hidden border border-slate-100 p-1 bg-white shadow-sm">
@@ -186,9 +186,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Cherpulassery</p>
               </div>
             </div>
-            <button onClick={toggleMobileMenu} className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 hover:text-red-800 transition-colors flex items-center justify-center">
-              <i className="fas fa-times text-lg"></i>
-            </button>
+            {/* Redundant close button removed to satisfy request */}
           </div>
           
           {/* Content area with staggered animations */}
