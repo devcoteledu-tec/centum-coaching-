@@ -67,7 +67,7 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
           </h2>
           <div className="w-32 h-2 bg-red-800 mx-auto rounded-full shadow-lg"></div>
           <p className="text-slate-900 text-sm sm:text-lg font-black leading-relaxed max-w-3xl mx-auto drop-shadow-[0_1px_2px_rgba(255,255,255,1)]">
-            At CENTUM's tuition centre, we teach every subject for State syllabus Classes 8-10, +1, +2 and CBSE Classes 8-10. 
+            At CENTUM's tuition centre, we teach every subject for State syllabus Classes 8-10, +1, +2. 
             Our expert guidance and study materials help students master their subjects and achieve exam success.
           </p>
         </div>
