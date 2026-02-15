@@ -159,6 +159,30 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
         </div>
       )}
 
+      {/* MOBILE POP-IN MODAL for Enquiry Form */}
+      {showMobileEnquiry && (
+        <div className="fixed inset-0 z-[1000] lg:hidden flex items-center justify-center p-4 animate-in fade-in duration-300">
+          {/* Blur Overlay */}
+          <div 
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-md" 
+            onClick={() => setShowMobileEnquiry(false)}
+          ></div>
+          
+          {/* Modal Container */}
+          <div className="relative w-full max-w-[360px] animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+            {/* Close Button */}
+            <button 
+              onClick={() => setShowMobileEnquiry(false)}
+              className="absolute -top-16 right-0 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-2xl active:scale-90 transition-all text-slate-900 border border-slate-200"
+            >
+              <i className="fas fa-times text-lg"></i>
+            </button>
+            
+            <CourseEnquiry />
+          </div>
+        </div>
+      )}
+
       {/* 1. Brochure Gallery */}
       <section className="relative overflow-hidden bg-transparent group -mx-4 sm:-mx-8 lg:-mx-16 z-0">
         {loading ? (
@@ -183,26 +207,15 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
             </div>
 
             <div className="absolute inset-0 z-40 flex items-center justify-center px-4 sm:px-12 lg:px-24 pointer-events-none">
+              {/* DESKTOP: Enquiry form on the right */}
               <div className="hidden lg:block w-full pointer-events-auto">
                 <div className="flex justify-end">
                    <CourseEnquiry />
                 </div>
               </div>
 
-              {/* Mobile Interaction Controls */}
-              <div className={`lg:hidden w-full text-center flex flex-col items-center justify-center pointer-events-auto animate-in fade-in duration-500 transition-opacity duration-300 ${hideMobileOverlays ? 'opacity-0' : 'opacity-100'}`}>
-                {showMobileEnquiry ? (
-                  <div className="w-full flex flex-col items-center animate-in zoom-in-95 duration-500">
-                    <button 
-                      onClick={() => setShowMobileEnquiry(false)}
-                      className="mb-4 text-white bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-[10px] font-black uppercase tracking-widest flex items-center gap-2"
-                    >
-                      <i className="fas fa-arrow-left"></i>
-                      Close Form
-                    </button>
-                    <CourseEnquiry />
-                  </div>
-                ) : (
+              {/* MOBILE: CTAs that open the Pop-in Modal */}
+              <div className={`lg:hidden w-full text-center flex flex-col items-center justify-center pointer-events-auto transition-opacity duration-300 ${hideMobileOverlays ? 'opacity-0' : 'opacity-100'}`}>
                   <div className="space-y-4 animate-in slide-in-from-bottom-8 duration-700 animate-gentle-nudge">
                     {currentIndex % 2 === 0 ? (
                       <>
@@ -236,7 +249,6 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                       </>
                     )}
                   </div>
-                )}
               </div>
             </div>
 
@@ -256,7 +268,7 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
               </button>
             </div>
 
-            <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 lg:hidden z-50 transition-opacity duration-300 ${showMobileEnquiry || hideMobileOverlays ? 'opacity-0' : 'opacity-100'}`}>
+            <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 lg:hidden z-50 transition-opacity duration-300 ${hideMobileOverlays ? 'opacity-0' : 'opacity-100'}`}>
                {brochures.map((_, i) => (
                  <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-8 bg-[#00b894]' : 'w-2 bg-slate-400'}`}></div>
                ))}
@@ -276,17 +288,14 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
         )}
       </section>
 
-      {/* Styled About Centum Section to match Reference Image - Reduced margin/gap */}
+      {/* About Centum Section */}
       <section className="bg-white pt-8 pb-16 sm:pt-10 sm:pb-20 -mx-4 sm:-mx-8 lg:-mx-16 px-4 sm:px-8 lg:px-16 overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             
-            {/* Visual Part with Diagonal Stripes - Further reduced dimensions */}
             <div className="relative flex justify-center items-center h-[200px] sm:h-[260px]">
-              {/* Geometric Background Bands - Smaller footprint */}
               <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
                 <div className="relative w-full h-full max-w-[220px] overflow-hidden">
-                   {/* Diagonal Stripes Container */}
                    <div className="absolute inset-0 origin-center rotate-[45deg] scale-150 flex flex-col gap-6">
                       <div className="w-full h-10 bg-zinc-900"></div>
                       <div className="w-full h-4 bg-transparent"></div>
@@ -297,7 +306,6 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* Student Image - Further reduced size */}
               <div className="relative z-10 w-full max-w-[180px] drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)] animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <img 
                   src="https://static.vecteezy.com/system/resources/previews/034/966/435/non_2x/ai-generated-portrait-of-student-background-free-png.png" 
@@ -307,7 +315,6 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Content Part */}
             <div className="space-y-6 text-center lg:text-left">
               <div className="space-y-3">
                 <h2 className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-none uppercase">
@@ -316,7 +323,7 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                 </h2>
                 
                 <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-medium max-w-xl mx-auto lg:mx-0">
-                  Experience the best  offline coaching classes in Kerala at CENTUM. We are passionate about reshaping education through personalized, life-changing  offline tuition services. We provide tailored coaching for  State  Syllabuses making us the best tuition center for State syllabus in Kerala.
+                  Experience the best offline coaching classes in Kerala at CENTUM. We are passionate about reshaping education through personalized, life-changing offline tuition services. We provide tailored coaching for State Syllabuses making us the best tuition center for State syllabus in Kerala.
                 </p>
               </div>
 
@@ -330,18 +337,14 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </section>
       
-      {/* 3. Main Content Sections */}
+      {/* Content Sections */}
       <div className="space-y-10 sm:space-y-16 py-8 sm:py-12">
         <FeaturedCourses onNavigate={onNavigate} />
-        
-        {/* Moved Why Choose Us Section here just after popular courses */}
         <WhyChooseUs />
-
         <TeachingHeart />
         <NewsAnnouncements onNavigate={onNavigate} />
         <Testimonials onNavigate={onNavigate} />
@@ -411,7 +414,7 @@ const HeroLogin: React.FC<HeroLoginProps> = ({ onNavigate }) => {
         </section>
       </div>
 
-      {/* 4. Global Stats Section */}
+      {/* Global Stats Section */}
       <section className="relative -mx-4 sm:-mx-8 lg:-mx-16 overflow-hidden py-16 sm:py-20 shadow-2xl group/stats">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed z-0 scale-105 transition-transform duration-[20s] group-hover/stats:scale-100" 
