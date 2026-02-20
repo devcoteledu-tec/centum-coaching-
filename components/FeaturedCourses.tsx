@@ -42,32 +42,31 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
     }
   ];
 
-  const silkBgUrl = "https://png.pngtree.com/png-vector/20230112/ourlarge/pngtree-abstract-red-wave-curve-shadow-dynamic-png-image_6561120.png";
+  // High-definition academic background
+  const hdBgUrl = "https://content-management-files.canva.com/822bb26e-6e31-4cbf-a91b-b767f6bb0177/Cert4-CourseCard-16_9.png";
 
   return (
     <section 
       className="py-16 sm:py-24 relative overflow-hidden -mx-4 sm:-mx-8 lg:-mx-16 px-4 sm:px-8 lg:px-16"
       style={{
-        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('${silkBgUrl}')`,
+        backgroundImage: `url('${hdBgUrl}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
-        backgroundColor: '#800000' // Base maroon color to support the image
       }}
     >
-      {/* Decorative inner glow for better focus on content */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/20 pointer-events-none"></div>
-
+      {/* Removed the dark overlay to make background fully visible */}
+      
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Section Header */}
         <div className="text-center mb-16 max-w-5xl mx-auto space-y-6">
-          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 uppercase tracking-tighter drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-black uppercase tracking-tighter">
             Popular Courses
           </h2>
-          <div className="w-32 h-2 bg-red-800 mx-auto rounded-full shadow-lg"></div>
-          <p className="text-slate-900 text-sm sm:text-lg font-black leading-relaxed max-w-3xl mx-auto drop-shadow-[0_1px_2px_rgba(255,255,255,1)]">
-            At CENTUM's tuition centre, we teach every subject for State syllabus Classes 8-10, +1, +2. 
+          <div className="w-32 h-2 bg-black/20 mx-auto rounded-full"></div>
+          <p className="text-black text-sm sm:text-lg font-bold leading-relaxed max-w-3xl mx-auto">
+            At CENTUM's tuition centre, we teach every subject for State syllabus Classes 8-10, +1, +2.
             Our expert guidance and study materials help students master their subjects and achieve exam success.
           </p>
         </div>
@@ -77,11 +76,10 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
           {courses.map((course) => (
             <div 
               key={course.id} 
-              className="relative bg-white/95 backdrop-blur-md rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white overflow-hidden flex flex-col hover:-translate-y-4 hover:shadow-[0_30px_60px_rgba(128,0,0,0.2)] transition-all duration-500 group h-full"
+              className="relative bg-white rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden flex flex-col hover:-translate-y-4 hover:shadow-[0_30px_60px_rgba(0,0,0,0.2)] transition-all duration-500 group h-full"
             >
               {/* Illustration Area */}
-              <div className="h-64 bg-slate-50/80 p-6 flex items-center justify-center relative overflow-hidden border-b border-slate-100">
-                 <div className="absolute inset-0 bg-red-50/30"></div>
+              <div className="h-64 bg-slate-50 p-6 flex items-center justify-center relative overflow-hidden border-b border-slate-100">
                  <img 
                   src={course.image} 
                   alt={course.title} 
@@ -94,7 +92,7 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
                 <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">{course.title}</h3>
                 
                 {/* Large Red Numbers */}
-                <div className="text-4xl font-black text-red-700 tracking-wider flex items-center gap-3 drop-shadow-sm">
+                <div className="text-4xl font-black text-red-700 tracking-wider flex items-center gap-3">
                   {course.classes.map((num, i) => (
                     <React.Fragment key={i}>
                       <span>{num}</span>
@@ -107,7 +105,7 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
                 <ul className="space-y-3 flex-1 w-full">
                   {course.features.map((feature, idx) => (
                     <li key={idx} className="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed flex items-center justify-center gap-2">
-                      <span className="w-2 h-2 bg-red-600 rounded-full shrink-0 shadow-sm"></span>
+                      <span className="w-2 h-2 bg-red-600 rounded-full shrink-0"></span>
                       {feature}
                     </li>
                   ))}
@@ -116,7 +114,7 @@ const FeaturedCourses: React.FC<FeaturedCoursesProps> = ({ onNavigate }) => {
                 {/* Admission Button */}
                 <button 
                   onClick={() => onNavigate?.('online-admission')}
-                  className="w-full bg-red-800 text-white py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-slate-900 transition-all shadow-xl shadow-red-900/20 active:scale-95"
+                  className="w-full bg-red-800 text-white py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-slate-900 transition-all shadow-xl active:scale-95"
                 >
                   Apply for Admission
                 </button>
